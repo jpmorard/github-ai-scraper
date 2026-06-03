@@ -1,0 +1,88 @@
+# GitHub AI Scraper Configuration
+
+# GitHub API configuration
+github:
+  token: ${GITHUB_TOKEN}  # Set via environment variable
+  cache_ttl: 3600         # Cache TTL in seconds (1 hour)
+
+# Filter configuration - AI 数据安全相关
+filter:
+  min_stars: 50
+  keywords:
+    - ai security
+    - data privacy
+    - sensitive data
+    - data protection
+    - privacy-preserving
+    - differential privacy
+    - federated learning
+    - secure computation
+    - confidential ai
+    - private ai
+    - data masking
+    - data anonymization
+    - pii protection
+    - llm security
+    - prompt injection
+    - ai safety
+    - secure inference
+    - encrypted inference
+    - trusted execution
+    - secure enclaves
+    - privacy ai
+    - data governance
+  topics:
+    - ai-security
+    - data-privacy
+    - differential-privacy
+    - federated-learning
+    - privacy-preserving
+    - llm-security
+    - ai-safety
+    - secure-computation
+    - confidential-computing
+    - data-protection
+  languages: []  # Empty means all languages
+  exclude_keywords:
+    - awesome
+    - list
+    - curated
+
+# Scrape configuration
+scrape:
+  data_fields:
+    - stars
+    - language
+    - topics
+    - contributors
+  max_results: 200
+  concurrency: 5
+  cache_ttl: 3600
+
+# Database configuration
+database:
+  path: ./data/ai_scraper.db
+
+# Go scheduler configuration
+scheduler:
+  enabled: true
+  workers: 4
+
+# Keywords configuration
+keywords:
+  file: ./keywords.txt
+  max_keywords: 100
+
+# Output configuration
+output:
+  dir: ./output
+  filename: ai_security_repos.md
+
+# Webhook notifications (optional)
+webhooks:
+  enabled: false
+  endpoints:
+    - url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+      events: [scrape_complete, trending_found]
+    - url: https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage
+      events: [scrape_complete]
